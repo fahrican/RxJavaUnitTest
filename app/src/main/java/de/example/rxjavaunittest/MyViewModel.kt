@@ -1,12 +1,12 @@
 package de.example.rxjavaunittest
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class MyViewModel(
     private val repository: Repository,
@@ -40,10 +40,10 @@ class MyViewModel(
                 .subscribe(
                     {
                         _singlePost.postValue(it)
-                        //Log.d("getPost()", "$it")
+                        Timber.d("getPost() $it")
                     },
                     {
-                        Log.e("getPost()", "Network error: ${it.message}")
+                        Timber.e("getPost() network error: ${it.message}")
                     })
         )
     }
@@ -58,7 +58,7 @@ class MyViewModel(
                         _posts.postValue(it)
                     },
                     {
-                        Log.e("fetchAllPosts()", "Network error: ${it.message}")
+                        Timber.e("fetchAllPosts() network error: ${it.message}")
                     }
                 ))
     }
