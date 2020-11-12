@@ -35,12 +35,12 @@ class MyViewModelTest {
         val repository = Repository(api)
         val post = Post(1, 1, "test test", "test text")
         val scheduler = TestScheduler()
-
         val viewModel = MyViewModel(repository, scheduler)
+
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
         viewModel.getPost()
-
         val singlePost: Post? = viewModel.singlePost.value
+
         assertEquals(post, singlePost)
     }
 
