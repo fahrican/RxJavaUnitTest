@@ -26,8 +26,6 @@ class MyViewModel(
 
     init {
         schedulers = Schedulers.io()
-        getPost()
-        getAllPosts()
     }
 
     override fun onCleared() {
