@@ -19,8 +19,8 @@ class MyViewModel(
     val singlePost: LiveData<Post>
         get() = _singlePost
 
-    private val _posts by lazy { MutableLiveData<Int>() }
-    val posts: LiveData<Int>
+    private val _posts by lazy { MutableLiveData<List<Post>>() }
+    val posts: LiveData<List<Post>>
         get() = _posts
 
 
@@ -55,7 +55,7 @@ class MyViewModel(
                 .subscribeOn(schedulers)
                 .subscribe(
                     {
-                        _posts.postValue(it.size)
+                        _posts.postValue(it)
                     },
                     {
                         Log.e("fetchAllPosts()", "Network error: ${it.message}")
