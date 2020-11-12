@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        viewModel.getPost()
+        viewModel.getAllPosts()
         observeLiveData()
     }
 
