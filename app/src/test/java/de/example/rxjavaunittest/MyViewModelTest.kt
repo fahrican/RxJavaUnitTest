@@ -45,6 +45,20 @@ class MyViewModelTest {
     }
 
     @Test
+    fun testGetPostBody() {
+        val repository = Repository(api)
+        val post = Post(1, 1, "test test", "test text")
+        val scheduler = TestScheduler()
+        val viewModel = MyViewModel(repository, scheduler)
+
+        Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
+        viewModel.getPost()
+        val body: String? = viewModel.singlePost.value?.body
+
+        assertEquals(post.body, body)
+    }
+
+    @Test
     fun testGetAllPosts() {
         val repository = Repository(api)
         val scheduler = TestScheduler()
