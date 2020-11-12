@@ -23,6 +23,9 @@ class MyViewModel(
     val posts: LiveData<List<Post>>
         get() = _posts
 
+    private val _isError by lazy { MutableLiveData<Boolean>() }
+    val isError: LiveData<Boolean>
+        get() = _isError
 
     init {
         schedulers = Schedulers.io()
@@ -44,6 +47,7 @@ class MyViewModel(
                     },
                     {
                         Timber.e("getPost() network error: ${it.message}")
+                        _isError.postValue(true)
                     })
         )
     }
@@ -59,6 +63,7 @@ class MyViewModel(
                     },
                     {
                         Timber.e("fetchAllPosts() network error: ${it.message}")
+                        _isError.postValue(true)
                     }
                 ))
     }
