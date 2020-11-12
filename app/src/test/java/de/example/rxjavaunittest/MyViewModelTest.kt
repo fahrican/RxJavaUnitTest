@@ -106,10 +106,19 @@ class MyViewModelTest {
         assertEquals(2, numberOfPosts)
     }
 
-}
-
-    /*fun testGetAllPostsExpectedError() {
+    @Test
+    fun testGetAllPostsExpectedError() {
         val repository = Repository(api)
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
-    }*/
+        val expectedError = Throwable()
+
+        Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.error(expectedError))
+
+        viewModel.getAllPosts()
+        val isError: Boolean? = viewModel.isError.value
+
+        assertEquals(true, isError)
+    }
+
+}
