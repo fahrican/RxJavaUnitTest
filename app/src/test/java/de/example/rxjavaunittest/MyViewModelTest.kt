@@ -45,17 +45,20 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetAllPosts() {
+    fun testGetAllPostsSize() {
         val repository = Repository(api)
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
-        val posts = arrayListOf(Post(0, 0, "", ""))
+        val posts = arrayListOf(
+            Post(0, 0, "", ""),
+            Post(1, 1, "1", "1")
+        )
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.just(posts))
         viewModel.getAllPosts()
+        val numberOfPosts: Int? = viewModel.posts.value?.size
 
-        val numberOfPosts: Int? = viewModel.posts.value
-        assertEquals(1, numberOfPosts)
+        assertEquals(2, numberOfPosts)
     }
 
 }
