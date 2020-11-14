@@ -29,6 +29,7 @@ class MyViewModelTest {
     @Mock
     lateinit var api: JsonPlaceholderApi
 
+    // unnecessary comment
     private lateinit var repository: Repository
     private val scheduler = TestScheduler()
     private val post = Post(1, 1, "test test", "test text")
