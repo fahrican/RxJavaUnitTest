@@ -6,9 +6,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Test
 import org.junit.Assert.*
-import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -16,13 +13,8 @@ import java.util.concurrent.TimeUnit
 
 class JsonPlaceholderApiServiceTest {
 
-    @Mock
-    lateinit var webService: JsonPlaceholderApi
+    private val webService = JsonPlaceholderApiService.getClient()
 
-    @Before
-    fun setup() {
-        MockitoAnnotations.initMocks(this)
-    }
 
     private fun createOkHttpClient(): OkHttpClient {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
