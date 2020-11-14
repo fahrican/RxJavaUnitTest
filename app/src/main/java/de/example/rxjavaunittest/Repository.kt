@@ -2,10 +2,10 @@ package de.example.rxjavaunittest
 
 import io.reactivex.Single
 
-class Repository(private val api: JsonPlaceholderApi) {
+interface Repository {
 
-    fun fetchPost(): Single<Post> = api.getPost()
+    fun fetchPost(): Single<Post>
 
-    fun fetchAllPosts(): Single<List<Post>> = api.getAllPosts()
+    fun fetchAllPosts(): Single<List<Post>>
 
 }

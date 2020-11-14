@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val service: JsonPlaceholderApi = JsonPlaceholderApiService.getClient()
-    private val repository = Repository(service)
+    private val repository = RepositoryImpl(service)
     private val viewModel = MyViewModel(repository, Schedulers.io())
 
     override fun onCreate(savedInstanceState: Bundle?) {
