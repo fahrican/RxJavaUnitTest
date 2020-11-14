@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.example.rxjavaunittest.data.repository.Repository
+import de.example.rxjavaunittest.di.DaggerAppComponent
 import de.example.rxjavaunittest.model.Post
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
-class MyViewModel(
+class MyViewModel @Inject constructor(
     private val repository: Repository,
     private var schedulers: Scheduler
 ) : ViewModel() {
@@ -30,6 +32,7 @@ class MyViewModel(
         get() = _isError
 
     init {
+        DaggerAppComponent.create().inject(this)
         schedulers = Schedulers.io()
     }
 
