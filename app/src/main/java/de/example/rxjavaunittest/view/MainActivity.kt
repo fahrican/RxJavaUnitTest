@@ -3,7 +3,6 @@ package de.example.rxjavaunittest.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import de.example.rxjavaunittest.data.networking.JsonPlaceholderApi
 import de.example.rxjavaunittest.data.repository.Repository
 import de.example.rxjavaunittest.viewmodel.MyViewModel
 import de.example.rxjavaunittest.databinding.ActivityMainBinding
@@ -15,9 +14,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    @Inject
-    lateinit var service: JsonPlaceholderApi
 
     @Inject
     lateinit var repository: Repository
