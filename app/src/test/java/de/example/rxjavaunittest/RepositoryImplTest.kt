@@ -28,34 +28,34 @@ class RepositoryImplTest {
 
 
     @Test
-    fun testFetchPost1() {
+    fun fetchPost() {
         `when`(api.getPost()).thenReturn(Single.just(post))
         classUnderTest.fetchPost().test().assertValue(post)
     }
 
     @Test
-    fun testFetchPost1Title() {
+    fun fetchPostTitle() {
         val post = Post(1, 1, "test test", "test text")
         `when`(api.getPost()).thenReturn(Single.just(post))
         classUnderTest.fetchPost().test().assertValue { it.title == post.title }
     }
 
     @Test
-    fun testFetchPost1ExpectedError() {
+    fun fetchPostExpectedError() {
         val expectedError = Throwable()
         `when`(api.getPost()).thenReturn(Single.error(expectedError))
         classUnderTest.fetchPost().test().assertError(expectedError)
     }
 
     @Test
-    fun testFetchAllPosts() {
+    fun fetchAllPosts() {
         val posts = arrayListOf<Post>()
         `when`(api.getAllPosts()).thenReturn(Single.just(posts))
         classUnderTest.fetchAllPosts().test().assertValue(posts)
     }
 
     @Test
-    fun testFetchAllPostsSize() {
+    fun fetchAllPostsSize() {
         val posts = arrayListOf(
             post,
             Post(2, 2, "title2", "text2")
@@ -65,7 +65,7 @@ class RepositoryImplTest {
     }
 
     @Test
-    fun testFetchAllPostsExpectedError() {
+    fun fetchAllPostsExpectedError() {
         val expectedError = Throwable()
         `when`(api.getAllPosts()).thenReturn(Single.error(expectedError))
         classUnderTest.fetchAllPosts().test().assertError(expectedError)
