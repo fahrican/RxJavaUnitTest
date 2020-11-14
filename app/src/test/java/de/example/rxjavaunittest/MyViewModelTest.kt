@@ -51,12 +51,15 @@ class MyViewModelTest {
     }
 
     @Test
-    fun getPostBody() {
+    fun getPostFields() {
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
         classUnderTest.getPost()
-        val body: String? = classUnderTest.singlePost.value?.body
+        val actualPost: Post? = classUnderTest.singlePost.value
 
-        assertEquals(post.body, body)
+        assertEquals(post.id, actualPost?.id)
+        assertEquals(post.userId, actualPost?.userId)
+        assertEquals(post.title, actualPost?.title)
+        assertEquals(post.body, actualPost?.body)
     }
 
     @Test
