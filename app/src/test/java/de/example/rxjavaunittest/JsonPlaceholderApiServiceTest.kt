@@ -1,5 +1,7 @@
 package de.example.rxjavaunittest
 
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApi
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Test

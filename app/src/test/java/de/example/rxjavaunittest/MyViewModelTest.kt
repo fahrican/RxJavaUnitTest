@@ -1,6 +1,11 @@
 package de.example.rxjavaunittest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApi
+import de.example.rxjavaunittest.data.repository.Repository
+import de.example.rxjavaunittest.data.repository.RepositoryImpl
+import de.example.rxjavaunittest.model.Post
+import de.example.rxjavaunittest.viewmodel.MyViewModel
 import io.github.plastix.rxschedulerrule.RxSchedulerRule
 import io.reactivex.Single
 import io.reactivex.schedulers.TestScheduler
@@ -24,15 +29,17 @@ class MyViewModelTest {
     @Mock
     lateinit var api: JsonPlaceholderApi
 
+    private lateinit var repository: Repository
+
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
+        repository = RepositoryImpl(api)
     }
 
     @Test
     fun testGetPost() {
-        val repository = Repository(api)
         val post = Post(1, 1, "test test", "test text")
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
@@ -46,7 +53,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetPostBody() {
-        val repository = Repository(api)
         val post = Post(1, 1, "test test", "test text")
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
@@ -60,7 +66,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetPostExpectedError() {
-        val repository = Repository(api)
         val expectedError = Throwable()
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
@@ -74,7 +79,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPosts() {
-        val repository = Repository(api)
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
@@ -91,7 +95,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPostsSize() {
-        val repository = Repository(api)
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
@@ -108,7 +111,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPostsExpectedError() {
-        val repository = Repository(api)
         val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val expectedError = Throwable()

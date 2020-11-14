@@ -1,5 +1,9 @@
 package de.example.rxjavaunittest
 
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApi
+import de.example.rxjavaunittest.data.repository.Repository
+import de.example.rxjavaunittest.data.repository.RepositoryImpl
+import de.example.rxjavaunittest.model.Post
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -8,7 +12,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 
-class RepositoryTest {
+class RepositoryImplTest {
 
     @Mock
     lateinit var api: JsonPlaceholderApi
@@ -19,7 +23,7 @@ class RepositoryTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = Repository(api)
+        repository = RepositoryImpl(api)
     }
 
 
