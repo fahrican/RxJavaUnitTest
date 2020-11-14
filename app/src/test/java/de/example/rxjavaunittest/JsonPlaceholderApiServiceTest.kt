@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit
 
 class JsonPlaceholderApiServiceTest {
 
+    private val service = JsonPlaceholderApiService.getClient()
+
+
     private fun createOkHttpClient(): OkHttpClient {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         return OkHttpClient.Builder()
@@ -23,7 +26,6 @@ class JsonPlaceholderApiServiceTest {
 
     @Test
     fun testDifferentRetrofitInstances() {
-        val service = JsonPlaceholderApiService.getClient()
         val retro = Retrofit.Builder()
             .client(createOkHttpClient())
             .baseUrl("https://jsonplaceholder.typicode.com")
@@ -32,14 +34,13 @@ class JsonPlaceholderApiServiceTest {
             .build()
             .create(JsonPlaceholderApi::class.java)
 
-        assertNotEquals(retro, service)
+        assertNotEquals(service, retro)
     }
 
     @Test
     fun testGetClient() {
-        val service1 = JsonPlaceholderApiService.getClient()
         val service2 = JsonPlaceholderApiService.getClient()
-        assertNotEquals(service1, service2)
+        assertNotEquals(service, service2)
     }
 
 }
