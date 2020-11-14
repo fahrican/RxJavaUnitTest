@@ -34,10 +34,14 @@ class RepositoryImplTest {
     }
 
     @Test
-    fun fetchPostTitle() {
-        val post = Post(1, 1, "test test", "test text")
+    fun fetchPostInstance() {
         `when`(api.getPost()).thenReturn(Single.just(post))
-        classUnderTest.fetchPost().test().assertValue { it.title == post.title }
+        classUnderTest.fetchPost().test().assertValue {
+            it.id == post.id &&
+                    it.userId == post.userId &&
+                    it.title == post.title &&
+                    it.body == post.body
+        }
     }
 
     @Test
