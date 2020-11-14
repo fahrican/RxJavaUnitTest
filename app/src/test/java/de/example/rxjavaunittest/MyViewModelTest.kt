@@ -31,6 +31,7 @@ class MyViewModelTest {
 
     private lateinit var repository: Repository
     private val scheduler = TestScheduler()
+    private val post = Post(1, 1, "test test", "test text")
 
 
     @Before
@@ -41,7 +42,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetPost() {
-        val post = Post(1, 1, "test test", "test text")
         val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
@@ -53,7 +53,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetPostBody() {
-        val post = Post(1, 1, "test test", "test text")
         val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
@@ -80,7 +79,7 @@ class MyViewModelTest {
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
-            Post(1, 1, "1", "1")
+            post
         )
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.just(posts))
@@ -95,7 +94,7 @@ class MyViewModelTest {
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
-            Post(1, 1, "1", "1")
+            post
         )
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.just(posts))
