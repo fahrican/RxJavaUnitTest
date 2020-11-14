@@ -7,27 +7,30 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
+
 class RepositoryTest {
 
     @Mock
     lateinit var api: JsonPlaceholderApi
 
+    private lateinit var repository: Repository
+    private val post = Post(1, 1, "test test", "test text")
+
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
+        repository = Repository(api)
     }
+
 
     @Test
     fun testFetchPost1() {
-        val repository = Repository(api)
-        val post = Post(1, 1, "test test", "test text")
         `when`(api.getPost()).thenReturn(Single.just(post))
         repository.fetchPost().test().assertValue(post)
     }
 
     @Test
     fun testFetchPost1Title() {
-        val repository = Repository(api)
         val post = Post(1, 1, "test test", "test text")
         `when`(api.getPost()).thenReturn(Single.just(post))
         repository.fetchPost().test().assertValue { it.title == post.title }
@@ -35,7 +38,6 @@ class RepositoryTest {
 
     @Test
     fun testFetchPost1ExpectedError() {
-        val repository = Repository(api)
         val expectedError = Throwable()
         `when`(api.getPost()).thenReturn(Single.error(expectedError))
         repository.fetchPost().test().assertError(expectedError)
@@ -43,7 +45,6 @@ class RepositoryTest {
 
     @Test
     fun testFetchAllPosts() {
-        val repository = Repository(api)
         val posts = arrayListOf<Post>()
         `when`(api.getAllPosts()).thenReturn(Single.just(posts))
         repository.fetchAllPosts().test().assertValue(posts)
@@ -51,9 +52,8 @@ class RepositoryTest {
 
     @Test
     fun testFetchAllPostsSize() {
-        val repository = Repository(api)
         val posts = arrayListOf(
-            Post(1, 1, "test test", "test text"),
+            post,
             Post(2, 2, "title2", "text2")
         )
         `when`(api.getAllPosts()).thenReturn(Single.just(posts))
@@ -62,7 +62,6 @@ class RepositoryTest {
 
     @Test
     fun testFetchAllPostsExpectedError() {
-        val repository = Repository(api)
         val expectedError = Throwable()
         `when`(api.getAllPosts()).thenReturn(Single.error(expectedError))
         repository.fetchAllPosts().test().assertError(expectedError)
