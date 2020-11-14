@@ -42,7 +42,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetPost() {
+    fun getPost() {
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
         classUnderTest.getPost()
         val singlePost: Post? = classUnderTest.singlePost.value
@@ -51,7 +51,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetPostBody() {
+    fun getPostBody() {
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
         classUnderTest.getPost()
         val body: String? = classUnderTest.singlePost.value?.body
@@ -60,7 +60,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetPostExpectedError() {
+    fun getPostExpectedError() {
         val expectedError = Throwable()
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.error(expectedError))
@@ -71,7 +71,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetAllPosts() {
+    fun getAllPosts() {
         val posts = arrayListOf(
             Post(0, 0, "", ""),
             post
@@ -85,7 +85,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetAllPostsSize() {
+    fun getAllPostsSize() {
         val posts = arrayListOf(
             Post(0, 0, "", ""),
             post
@@ -99,7 +99,7 @@ class MyViewModelTest {
     }
 
     @Test
-    fun testGetAllPostsExpectedError() {
+    fun getAllPostsExpectedError() {
         val expectedError = Throwable()
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.error(expectedError))
