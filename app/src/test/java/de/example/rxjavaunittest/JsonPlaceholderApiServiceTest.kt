@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 class JsonPlaceholderApiServiceTest {
 
-    private val service = JsonPlaceholderApiService.getClient()
+    private val webService = JsonPlaceholderApiService.getClient()
 
 
     private fun createOkHttpClient(): OkHttpClient {
@@ -27,7 +27,7 @@ class JsonPlaceholderApiServiceTest {
     }
 
     @Test
-    fun testDifferentRetrofitInstances() {
+    fun `given two instances of retrofit check those`() {
         val retro = Retrofit.Builder()
             .client(createOkHttpClient())
             .baseUrl("https://jsonplaceholder.typicode.com")
@@ -36,13 +36,13 @@ class JsonPlaceholderApiServiceTest {
             .build()
             .create(JsonPlaceholderApi::class.java)
 
-        assertNotEquals(service, retro)
+        assertNotEquals(webService, retro)
     }
 
     @Test
-    fun testGetClient() {
+    fun getClient() {
         val service2 = JsonPlaceholderApiService.getClient()
-        assertNotEquals(service, service2)
+        assertNotEquals(webService, service2)
     }
 
 }
