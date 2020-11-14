@@ -1,4 +1,4 @@
-package de.example.rxjavaunittest
+package de.example.rxjavaunittest.model
 
 data class Post(
     val id: Int?,

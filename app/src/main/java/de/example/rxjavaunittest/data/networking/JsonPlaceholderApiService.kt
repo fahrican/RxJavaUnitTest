@@ -1,4 +1,4 @@
-package de.example.rxjavaunittest
+package de.example.rxjavaunittest.data.networking
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

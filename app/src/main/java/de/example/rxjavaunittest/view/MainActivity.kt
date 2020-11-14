@@ -1,7 +1,11 @@
-package de.example.rxjavaunittest
+package de.example.rxjavaunittest.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApi
+import de.example.rxjavaunittest.data.networking.JsonPlaceholderApiService
+import de.example.rxjavaunittest.viewmodel.MyViewModel
+import de.example.rxjavaunittest.data.repository.RepositoryImpl
 import de.example.rxjavaunittest.databinding.ActivityMainBinding
 import io.reactivex.schedulers.Schedulers
 

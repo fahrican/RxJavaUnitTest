@@ -1,8 +1,10 @@
-package de.example.rxjavaunittest
+package de.example.rxjavaunittest.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.example.rxjavaunittest.data.repository.Repository
+import de.example.rxjavaunittest.model.Post
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

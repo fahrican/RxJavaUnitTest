@@ -1,5 +1,6 @@
-package de.example.rxjavaunittest
+package de.example.rxjavaunittest.data.networking
 
+import de.example.rxjavaunittest.model.Post
 import io.reactivex.Single
 import retrofit2.http.GET
 
