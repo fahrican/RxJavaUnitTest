@@ -17,41 +17,41 @@ class RepositoryImplTest {
     @Mock
     lateinit var api: JsonPlaceholderApi
 
-    private lateinit var repository: Repository
+    private lateinit var classUnderTest: Repository
     private val post = Post(1, 1, "test test", "test text")
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = RepositoryImpl(api)
+        classUnderTest = RepositoryImpl(api)
     }
 
 
     @Test
     fun testFetchPost1() {
         `when`(api.getPost()).thenReturn(Single.just(post))
-        repository.fetchPost().test().assertValue(post)
+        classUnderTest.fetchPost().test().assertValue(post)
     }
 
     @Test
     fun testFetchPost1Title() {
         val post = Post(1, 1, "test test", "test text")
         `when`(api.getPost()).thenReturn(Single.just(post))
-        repository.fetchPost().test().assertValue { it.title == post.title }
+        classUnderTest.fetchPost().test().assertValue { it.title == post.title }
     }
 
     @Test
     fun testFetchPost1ExpectedError() {
         val expectedError = Throwable()
         `when`(api.getPost()).thenReturn(Single.error(expectedError))
-        repository.fetchPost().test().assertError(expectedError)
+        classUnderTest.fetchPost().test().assertError(expectedError)
     }
 
     @Test
     fun testFetchAllPosts() {
         val posts = arrayListOf<Post>()
         `when`(api.getAllPosts()).thenReturn(Single.just(posts))
-        repository.fetchAllPosts().test().assertValue(posts)
+        classUnderTest.fetchAllPosts().test().assertValue(posts)
     }
 
     @Test
@@ -61,14 +61,14 @@ class RepositoryImplTest {
             Post(2, 2, "title2", "text2")
         )
         `when`(api.getAllPosts()).thenReturn(Single.just(posts))
-        repository.fetchAllPosts().test().assertValue { it.isNotEmpty() }
+        classUnderTest.fetchAllPosts().test().assertValue { it.isNotEmpty() }
     }
 
     @Test
     fun testFetchAllPostsExpectedError() {
         val expectedError = Throwable()
         `when`(api.getAllPosts()).thenReturn(Single.error(expectedError))
-        repository.fetchAllPosts().test().assertError(expectedError)
+        classUnderTest.fetchAllPosts().test().assertError(expectedError)
     }
 
 }
