@@ -30,6 +30,7 @@ class MyViewModelTest {
     lateinit var api: JsonPlaceholderApi
 
     private lateinit var repository: Repository
+    private val scheduler = TestScheduler()
 
 
     @Before
@@ -41,7 +42,6 @@ class MyViewModelTest {
     @Test
     fun testGetPost() {
         val post = Post(1, 1, "test test", "test text")
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
@@ -54,7 +54,6 @@ class MyViewModelTest {
     @Test
     fun testGetPostBody() {
         val post = Post(1, 1, "test test", "test text")
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
@@ -67,7 +66,6 @@ class MyViewModelTest {
     @Test
     fun testGetPostExpectedError() {
         val expectedError = Throwable()
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.error(expectedError))
@@ -79,7 +77,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPosts() {
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
@@ -95,7 +92,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPostsSize() {
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
@@ -111,7 +107,6 @@ class MyViewModelTest {
 
     @Test
     fun testGetAllPostsExpectedError() {
-        val scheduler = TestScheduler()
         val viewModel = MyViewModel(repository, scheduler)
         val expectedError = Throwable()
 
