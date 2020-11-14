@@ -32,32 +32,29 @@ class MyViewModelTest {
     private lateinit var repository: Repository
     private val scheduler = TestScheduler()
     private val post = Post(1, 1, "test test", "test text")
-
+    private lateinit var classUnderTest: MyViewModel
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
         repository = RepositoryImpl(api)
+        classUnderTest = MyViewModel(repository, scheduler)
     }
 
     @Test
     fun testGetPost() {
-        val viewModel = MyViewModel(repository, scheduler)
-
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
-        viewModel.getPost()
-        val singlePost: Post? = viewModel.singlePost.value
+        classUnderTest.getPost()
+        val singlePost: Post? = classUnderTest.singlePost.value
 
         assertEquals(post, singlePost)
     }
 
     @Test
     fun testGetPostBody() {
-        val viewModel = MyViewModel(repository, scheduler)
-
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.just(post))
-        viewModel.getPost()
-        val body: String? = viewModel.singlePost.value?.body
+        classUnderTest.getPost()
+        val body: String? = classUnderTest.singlePost.value?.body
 
         assertEquals(post.body, body)
     }
@@ -65,54 +62,49 @@ class MyViewModelTest {
     @Test
     fun testGetPostExpectedError() {
         val expectedError = Throwable()
-        val viewModel = MyViewModel(repository, scheduler)
 
         Mockito.`when`(repository.fetchPost()).thenReturn(Single.error(expectedError))
-        viewModel.getPost()
-        val isError: Boolean? = viewModel.isError.value
+        classUnderTest.getPost()
+        val isError: Boolean? = classUnderTest.isError.value
 
         assertEquals(true, isError)
     }
 
     @Test
     fun testGetAllPosts() {
-        val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
             post
         )
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.just(posts))
-        viewModel.getAllPosts()
-        val tempPosts: List<Post>? = viewModel.posts.value
+        classUnderTest.getAllPosts()
+        val tempPosts: List<Post>? = classUnderTest.posts.value
 
         assertEquals(posts, tempPosts)
     }
 
     @Test
     fun testGetAllPostsSize() {
-        val viewModel = MyViewModel(repository, scheduler)
         val posts = arrayListOf(
             Post(0, 0, "", ""),
             post
         )
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.just(posts))
-        viewModel.getAllPosts()
-        val numberOfPosts: Int? = viewModel.posts.value?.size
+        classUnderTest.getAllPosts()
+        val numberOfPosts: Int? = classUnderTest.posts.value?.size
 
         assertEquals(2, numberOfPosts)
     }
 
     @Test
     fun testGetAllPostsExpectedError() {
-        val viewModel = MyViewModel(repository, scheduler)
         val expectedError = Throwable()
 
         Mockito.`when`(repository.fetchAllPosts()).thenReturn(Single.error(expectedError))
-
-        viewModel.getAllPosts()
-        val isError: Boolean? = viewModel.isError.value
+        classUnderTest.getAllPosts()
+        val isError: Boolean? = classUnderTest.isError.value
 
         assertEquals(true, isError)
     }
